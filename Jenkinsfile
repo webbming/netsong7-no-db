@@ -41,10 +41,10 @@ pipeline {
             steps {
                 sshagent (credentials: ['app-ssh-key']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "docker stop \$(docker ps -q) || true"
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "docker rm \$(docker ps -a -q) || true"
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "docker rmi -f netsong7/netsong7-no-db || true"
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "docker run -d -p 8080:8080 netsong7/netsong7-no-db"
+                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "
+                        docker rm -f app || true &&
+                        docker rmi -f netsong7/netsong7-no-db || true &&
+                        docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db"
                     '''
                 }    
             }
@@ -54,10 +54,10 @@ pipeline {
             steps {
                 sshagent (credentials: ['app-ssh-key']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.40 "docker stop \$(docker ps -q) || true"
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.40 "docker rm \$(docker ps -a -q) || true"
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.40 "docker rmi -f netsong7/netsong7-no-db || true"
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.40 "docker run -d -p 8080:8080 netsong7/netsong7-no-db"
+                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.40 "
+                        docker rm -f app || true &&
+                        docker rmi -f netsong7/netsong7-no-db || true &&
+                        docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db"
                     '''
                 }
             }
