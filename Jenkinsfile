@@ -52,8 +52,7 @@ pipeline {
                     docker rmi -f netsong7/netsong7-no-db || true
                     sleep 2
                     docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db
-                    ENDSSH
-                    '''
+                    ENDSSH'''
                 }    
             }
         }
@@ -73,8 +72,7 @@ pipeline {
                     docker rmi -f netsong7/netsong7-no-db || true
                     sleep 2
                     docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db
-                    ENDSSH
-                    '''
+                    ENDSSH'''
                 }
             }
         }
