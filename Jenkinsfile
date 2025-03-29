@@ -31,7 +31,7 @@ pipeline {
         stage('Docker Build & Push') {
             environment {
                 // Credentials에서 설정한 Docker Hub 인증 정보 사용
-                DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
+                DOCKER_CREDENTIALS_ID = 'docker-hub-credential'
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
