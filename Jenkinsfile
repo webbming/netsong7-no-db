@@ -51,6 +51,7 @@ pipeline {
                     docker rm -f app || true
                     docker rmi -f netsong7/netsong7-no-db || true
                     sleep 2
+                    docker ps --filter "publish=8080" --format "{{.ID}}" | xargs -r docker rm -f
                     docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db
                     ENDSSH'''
                 }    
@@ -71,6 +72,7 @@ pipeline {
                     docker rm -f app || true
                     docker rmi -f netsong7/netsong7-no-db || true
                     sleep 2
+                    docker ps --filter "publish=8080" --format "{{.ID}}" | xargs -r docker rm -f
                     docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db
                     ENDSSH'''
                 }
