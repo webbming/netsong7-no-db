@@ -41,14 +41,12 @@ pipeline {
             steps {
                 sshagent (credentials: ['app-ssh-key']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 <<EOF
-                        docker stop $(docker ps -q) || true
-                        docker rm $(docker ps -a -q) || true
-                        docker rmi -f $DOCKER_IMAGE:$DOCKER_TAG || true
-                        docker run -d -p 8080:8080 $DOCKER_IMAGE:$DOCKER_TAG
-                        EOF
+                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "docker stop \$(docker ps -q) || true"
+                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "docker rm \$(docker ps -a -q) || true"
+                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "docker rmi -f netsong7/netsong7-no-db || true"
+                        ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "docker run -d -p 8080:8080 netsong7/netsong7-no-db"
                     '''
-                }
+                }    
             }
         }
 
