@@ -43,10 +43,12 @@ pipeline {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "
                         fuser -k 8080/tcp || true &&
+                        sleep 2 &&
                         docker rm -f app || true &&
                         docker rmi -f netsong7/netsong7-no-db || true &&
-                        docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db"
-                    '''
+                        sleep 2 &&
+                        docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db
+                        '''
                 }    
             }
         }
@@ -57,10 +59,12 @@ pipeline {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.40 "
                         fuser -k 8080/tcp || true &&
+                        sleep 2 &&
                         docker rm -f app || true &&
                         docker rmi -f netsong7/netsong7-no-db || true &&
-                        docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db"
-                    '''
+                        sleep 2 &&
+                        docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db
+                        '''
                 }
             }
         }
