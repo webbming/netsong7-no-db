@@ -42,10 +42,10 @@ pipeline {
                 sshagent (credentials: ['app-ssh-key']) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.61 "
-                        PID=$(sudo lsof -ti:8080)
+                        PID=$(lsof -ti:8080)
                         if [ ! -z "$PID" ]; then
                             echo "Killing process using port 8080: $PID"
-                            sudo kill -9 $PID
+                            kill -9 $PID
                             sleep 2
                         fi
                         docker rm -f app || true
@@ -62,17 +62,17 @@ pipeline {
                 sshagent (credentials: ['app-ssh-key']) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ec2-user@10.1.1.40 "
-                        PID=$(sudo lsof -ti:8080)
+                        PID=$(lsof -ti:8080)
                         if [ ! -z "$PID" ]; then
                             echo "Killing process using port 8080: $PID"
-                            sudo kill -9 $PID
+                            kill -9 $PID
                             sleep 2
                         fi
                         docker rm -f app || true
                         docker rmi -f netsong7/netsong7-no-db || true
                         sleep 2
                         docker run -d --name app -p 8080:8080 netsong7/netsong7-no-db"
-                        '''
+                    '''
                 }
             }
         }
